@@ -3,6 +3,8 @@
 
 (def state (atom {}))
 
+(def goal-path (atom '()))
+
 (def checked-states (atom {}))
 
 (defn init-state [instate]
@@ -211,7 +213,13 @@
 (defn search-for-goal-state [state goal-state]
   (loop [moved-state (init-state state)]
     (when (not (state-goal? moved-state goal-state))
-      (println @moved-state)
+      (if (not (:dead-end? (meta moved-state)))
+        (do
+          (println @moved-state)
+          (concat goal-path (list moved-state)))
+        (do
+          (swap! goal-path #(take (- (count @goal-path) 1) %))
+          (reset! moved-state (last @goal-path))))
       (recur (swap-state moved-state)))))
 
 (defn -main []

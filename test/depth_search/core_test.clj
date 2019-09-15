@@ -63,6 +63,10 @@
 ;;                                                                      :d 1 :e 4 :f 7
 ;;                                                                      :g 8 :h 2 :i 9}))))))
 
+(deftest goal-state-test
+  (testing "Has the goal state been found properly?"
+    ))
+
 (deftest initialize-state-test
   (testing "Has the state been initialized properly?"
     (is (= @(init-state [1 0 2 3 4 5 6 7 8]) (into (sorted-map) {:a 1 :b 0 :c 2 :d 3 :e 4 :f 5 :g 6 :h 7 :i 8})))
